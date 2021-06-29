@@ -1,0 +1,30 @@
+---
+- hosts: all
+  become: true
+  tasks:
+     - name: installing nginx
+       apt: name=nginx state=latest
+     - name: copying nginx config
+       copy:
+           src: "template/demo.conf"
+           dest: "/etc/nginx/sites-available/demo.conf"
+           owner: root
+           group: root
+           mode: 0644
+     - name: linking a file in nginx
+       file:
+           src: "/etc/nginx/sites-available/demo.conf"
+           dest: "/etc/nginx/sites-enabled/demo.conf"
+           state: link     
+           owner: root
+           group: root
+
+     - name: restaring nginx
+       service: name=nginx state=restarted
+     - name: installing Mysql
+       apt: name=mysql-server state=latest
+
+
+
+
+

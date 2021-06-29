@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+     - name: installing mysql extention
+       apt: name=python3-mysqldb state=latest
+
+     - name: creating group
+       group: name=demo state=present
+
+     - name: craete user
+       user: name=demo groups=demo createhome=yes append=yes
+
+
+
+
