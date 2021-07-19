@@ -1,0 +1,18 @@
+---
+- name: installing git
+  apt: name=git state=latest
+
+- name: updating cache
+  apt: update_cache=true
+
+- name: copy sample.txt
+  copy:
+      src: templates/sample.txt
+      dest: /home/ubuntu/
+      owner: root
+      group: root
+      mode: 0777
+- name: using variable
+  debug:
+      msg: "hello i am {{user}} and I at {{age}} from {{place}}"
+

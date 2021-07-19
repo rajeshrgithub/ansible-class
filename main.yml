@@ -1,5 +1,10 @@
 ---
-#- import_playbook: deploy.yml
-- import_playbook: git.yml
-- import_playbook : nginx.yml
-- import_playbook  : mysql.yml
+- hosts: all
+  become: true
+  vars_files:
+     - "./roles/nginx/vars/xyz.yml"
+     - "./roles/git/vars/input.yml"
+  roles:
+      - nginx
+      - mysql
+      - git
