@@ -2,9 +2,10 @@
 - hosts: all
   become: true
   vars_files:
-     - "./roles/nginx/vars/xyz.yml"
+     - "./vars/xyz.yml"
        #- "./roles/git/vars/input.yml"
   roles:
-      - nginx
-      - mysql
-      - git
+          - users
+          #- nginx
+          #- mysql
+        #- git

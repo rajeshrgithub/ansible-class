@@ -1,0 +1,17 @@
+---
+- name: using loop
+  user: name='{{item}}' state=present
+  loop:
+     - gopi
+     - rajesh
+     - raman
+
+- name: creating user1
+  user:
+      name: "{{item.name}}"
+      password: "{{item.passwd}}"
+      state: present
+  with_items:
+          - { name: user1, passwd: 123 }
+          - { name: user2, passwd: 456 }
+          - { name: user3, passwd: 789 }
