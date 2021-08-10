@@ -1,0 +1,9 @@
+- hosts: dev
+  become: true
+  tasks:
+       - name: installing nginx on ubuntu
+         apt: name=nginx state=latest
+         when: ansible_distribution == 'Ubuntu'
+       - name: installing nginx on centos
+         yum: name=nginx state=latest
+         when: ansible_distribution == 'CentOS'

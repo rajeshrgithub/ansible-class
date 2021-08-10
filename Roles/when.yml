@@ -1,0 +1,16 @@
+- hosts: dev
+  become: true
+  tasks:
+      - name: installing nginx
+        apt: name=nginx state=latest
+
+      - name: copying  index.html to /var/www/html
+        copy: src=index.html dest=/var/www/html/index.html
+        register: file_modified
+      - name: listing conten
+        debug:
+            msg: "{{file_modified}}"
+      - name: restarting nginx service
+        service: name=nginx state=restarted
+        when: file_modified.changed
+

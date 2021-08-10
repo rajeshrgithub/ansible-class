@@ -1,0 +1,43 @@
+ - hosts: all
+   #become: true
+   tasks:
+      - block:
+         - name: installing nginx softwares
+           apt: name=nginx state=latest
+         
+         - name: installing git 
+           apt: name=git state=latest
+         
+         - name: installing zip
+           apt: name=zip state=latest
+        
+         - name: user
+           command: whoami
+           register: user
+       
+         - debug:
+                var: user
+
+        become: true
+
+        # rescue:
+        #     - name: test
+        #   debug:
+        #             msg: " Some error happend please check"
+        #     - name: installing checks
+        #       apt: name=git state=latest
+        
+        always:
+              - name: checking nginx running or not
+                shell: sudo systemctl status nginx
+                register: status
+
+              - debug:
+                   var: status
+      - name: This task is out of block
+        become: true
+        command: whoami
+        register: new
+      - debug:
+              var: new
+
